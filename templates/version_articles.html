@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ version['law_title'] }} · {{ version['version_label'] }}{% endblock %}
+{% block content %}
+  <a class="back" href="{{ url_for('law_detail', law_slug=version['law_slug']) }}">← 返回版本历史</a>
+  <div class="page-title compact">
+    <div class="source-row"><span class="status-badge {{ version['status'] }}">{{ version['status']|status_label }}</span>{% if version['is_current'] %}<span class="current-mark">当前版本</span>{% endif %}</div>
+    <h1>{{ version['law_title'] }}</h1><p>{{ version['version_label'] }} · 共 {{ total }} 条</p>
+  </div>
+  <div class="article-index">
+    {% for article in articles %}
+      <a href="{{ url_for('article_detail', law_slug=version['law_slug'], article_no=article['article_no'], version=version['id'] if not version['is_current'] else None) }}">
+        <strong>第{{ article['article_no'] }}条</strong><span>{{ article['title'] or article['content']|truncate(42) }}</span>
+      </a>
+    {% endfor %}
+  </div>
+  <nav class="pagination">
+    {% if page > 1 %}<a href="{{ url_for('version_articles', law_slug=version['law_slug'], version_id=version['id'], page=page-1) }}">← 上一页</a>{% else %}<span></span>{% endif %}
+    <span>第 {{ page }} / {{ ((total - 1) // per_page) + 1 }} 页</span>
+    {% if page * per_page < total %}<a href="{{ url_for('version_articles', law_slug=version['law_slug'], version_id=version['id'], page=page+1) }}">下一页 →</a>{% endif %}
+  </nav>
+{% endblock %}

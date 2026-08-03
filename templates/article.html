@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}{{ article['law_short_name'] or article['law_title'] }}第{{ article['article_no'] }}条{% endblock %}
+{% block content %}
+  <div class="page-actions">
+    <a class="back" href="{{ url_for('index') }}">← 返回查询</a>
+    <a class="back" href="{{ url_for('law_detail', law_slug=article['law_slug']) }}">查看法律版本 →</a>
+  </div>
+  <article class="article-card">
+    <div class="source-row">
+      <a class="law-chip" href="{{ url_for('law_detail', law_slug=article['law_slug']) }}">{{ article['law_title'] }}</a>
+      <span class="status-badge {{ article['version_status'] }}">{{ article['version_status']|status_label }}</span>
+      {% if not article['is_current'] %}<span class="status-badge historical">历史版本</span>{% endif %}
+      <form class="inline-form favorite-form" method="post" action="{{ url_for('toggle_favorite', law_slug=article['law_slug'], article_no=article['article_no']) }}">
+        {% if as_of %}<input type="hidden" name="as_of" value="{{ as_of }}">{% elif not article['is_current'] %}<input type="hidden" name="version" value="{{ article['version_id'] }}">{% endif %}
+        <button type="submit" class="small-button">{{ '★ 已收藏' if is_favorite else '☆ 收藏' }}</button>
+      </form>
+    </div>
+    <p class="breadcrumb">{{ article['version_label'] }}{% if article['book'] %} / {{ article['book'] }}{% endif %}{% if article['chapter'] %} / {{ article['chapter'] }}{% endif %}</p>
+    <div class="article-heading">
+      <span>第 {{ article['article_no'] }} 条</span>
+      <h1>{{ article['title'] or article['law_short_name'] ~ '第' ~ article['article_no'] ~ '条' }}</h1>
+    </div>
+    {% if as_of %}<div class="as-of-banner">正在查看 <strong>{{ as_of }}</strong> 时适用的版本。</div>{% endif %}
+    <div class="law-text">{{ linked_content }}</div>
+    {% if article['keywords'] %}
+      <div class="tags">{% for keyword in article['keywords'].split(',') %}<span>{{ keyword }}</span>{% endfor %}</div>
+    {% endif %}
+    <dl class="source-meta">
+      <div><dt>版本</dt><dd>{{ article['version_label'] }}</dd></div>
+      <div><dt>公布日期</dt><dd>{{ article['version_promulgation_date']|date_or_dash }}</dd></div>
+      <div><dt>施行日期</dt><dd>{{ article['version_effective_date']|date_or_dash }}</dd></div>
+      {% if article['version_expiry_date'] %}<div><dt>失效日期</dt><dd>{{ article['version_expiry_date'] }}</dd></div>{% endif %}
+      {% if article['version_source_url'] or article['law_source_url'] %}<div><dt>官方来源</dt><dd><a href="{{ article['version_source_url'] or article['law_source_url'] }}" target="_blank" rel="noreferrer">查看原始记录</a></dd></div>{% endif %}
+    </dl>
+  </article>
+
+  <form class="as-of-form" method="get">
+    <label>按日期查看适用版本 <input type="date" name="as_of" value="{{ as_of }}"></label>
+    <button type="submit">切换</button>
+    {% if as_of %}<a href="{{ url_for('article_detail', law_slug=article['law_slug'], article_no=article['article_no']) }}">返回现行版本</a>{% endif %}
+  </form>
+
+  <nav
+    class="article-nav"
+    id="keyboard-article-navigation"
+    data-previous-url="{% if adjacent['previous_no'] %}{{ url_for('article_detail', law_slug=article['law_slug'], article_no=adjacent['previous_no'], version=article['version_id'] if not article['is_current'] and not as_of else None, as_of=as_of or None) }}{% endif %}"
+    data-next-url="{% if adjacent['next_no'] %}{{ url_for('article_detail', law_slug=article['law_slug'], article_no=adjacent['next_no'], version=article['version_id'] if not article['is_current'] and not as_of else None, as_of=as_of or None) }}{% endif %}"
+  >
+    {% if adjacent['previous_no'] %}<a href="{{ url_for('article_detail', law_slug=article['law_slug'], article_no=adjacent['previous_no'], version=article['version_id'] if not article['is_current'] and not as_of else None, as_of=as_of or None) }}">← 第{{ adjacent['previous_no'] }}条 <kbd>←</kbd></a>{% else %}<span></span>{% endif %}
+    <span class="keyboard-hint">键盘左右键切换条文</span>
+    {% if adjacent['next_no'] %}<a href="{{ url_for('article_detail', law_slug=article['law_slug'], article_no=adjacent['next_no'], version=article['version_id'] if not article['is_current'] and not as_of else None, as_of=as_of or None) }}"><kbd>→</kbd> 第{{ adjacent['next_no'] }}条 →</a>{% endif %}
+  </nav>
+
+  {% if related_numbers %}
+    <section class="panel">
+      <h2>关联条文</h2>
+      <div class="related-links">
+        {% for number in related_numbers %}
+          {% set target = related_by_number.get(number) %}
+          {% if target %}
+            <a href="{{ url_for('article_detail', law_slug=article['law_slug'], article_no=number|int, version=article['version_id'] if not article['is_current'] and not as_of else None, as_of=as_of or None) }}">第{{ number }}条{% if target['title'] %} · {{ target['title'] }}{% endif %}</a>
+          {% else %}<span class="unavailable">第{{ number }}条（该版本无此条）</span>{% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="panel notes-panel">
+    <h2>我的笔记 <small>跨版本保留</small></h2>
+    <form method="post" action="{{ url_for('save_note', law_slug=article['law_slug'], article_no=article['article_no']) }}">
+      {% if as_of %}<input type="hidden" name="as_of" value="{{ as_of }}">{% elif not article['is_current'] %}<input type="hidden" name="version" value="{{ article['version_id'] }}">{% endif %}
+      <textarea name="content" maxlength="10000" placeholder="记录理解、易错点、案例或关联知识……">{{ note['content'] if note else '' }}</textarea>
+      <button type="submit">保存笔记</button>
+      {% if note %}<small>上次更新：{{ note['updated_at'] }}</small>{% endif %}
+    </form>
+  </section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='article-navigation.js') }}" defer></script>{% endblock %}

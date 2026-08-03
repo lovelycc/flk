@@ -1,0 +1,20 @@
+{
+  "slug": "administrative-litigation-law",
+  "title": "中华人民共和国行政诉讼法",
+  "short_name": "行政诉讼法",
+  "issuing_authority": "全国人民代表大会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2017年修正版（现行）",
+  "version_status": "effective",
+  "promulgation_date": "2017-06-27",
+  "effective_date": "2017-07-01",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf858550a0f",
+  "source_record_id": "2c909fdd678bf17901678bf858550a0f",
+  "source_hash": "0ee676b738e8173f6c442342595b0282552964ad1446eeec557beafa5f819472",
+  "description": "人民法院审理行政案件的基本诉讼法律。",
+  "article_count": 103,
+  "source_database": "国家法律法规数据库"
+}

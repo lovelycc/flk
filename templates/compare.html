@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ law['title'] }} · 版本对比{% endblock %}
+{% block content %}
+  <a class="back" href="{{ url_for('law_detail', law_slug=law['slug']) }}">← 返回版本历史</a>
+  <div class="page-title compact"><p class="eyebrow">VERSION DIFF</p><h1>{{ law['short_name'] or law['title'] }}版本对比</h1></div>
+  {% if versions|length < 2 %}
+    <div class="empty">当前只有一个版本，导入历史或新版本后即可比较。</div>
+  {% else %}
+    <form class="compare-form" method="get">
+      <label>旧版本<select name="from" required>{% for version in versions %}<option value="{{ version['id'] }}" {% if selected_from and selected_from['id']==version['id'] %}selected{% endif %}>{{ version['version_label'] }}</option>{% endfor %}</select></label>
+      <span>→</span>
+      <label>新版本<select name="to" required>{% for version in versions %}<option value="{{ version['id'] }}" {% if selected_to and selected_to['id']==version['id'] %}selected{% endif %}>{{ version['version_label'] }}</option>{% endfor %}</select></label>
+      <button type="submit">开始比较</button>
+    </form>
+    {% if selected_from and selected_to %}
+      <div class="diff-summary"><span class="added">新增 {{ summary['added'] }}</span><span class="removed">删除 {{ summary['removed'] }}</span><span class="modified">修改 {{ summary['modified'] }}</span><span>未变 {{ summary['unchanged'] }}</span></div>
+      {% if changes %}
+        <div class="change-list">
+          {% for change in changes %}
+            <details>
+              <summary><strong>第{{ change['article_no'] }}条</strong><span class="change-type {{ change['type'] }}">{{ {'added':'新增','removed':'删除','modified':'修改'}[change['type']] }}</span></summary>
+              <div class="compare-columns"><div><h4>{{ selected_from['version_label'] }}</h4><p>{{ change['old_html'] or '—' }}</p></div><div><h4>{{ selected_to['version_label'] }}</h4><p>{{ change['new_html'] or '—' }}</p></div></div>
+            </details>
+          {% endfor %}
+        </div>
+      {% else %}<div class="empty">两个版本的条文内容完全一致。</div>{% endif %}
+    {% endif %}
+  {% endif %}
+{% endblock %}

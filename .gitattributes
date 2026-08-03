@@ -1,0 +1,16 @@
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.service text eol=lf
+*.example text eol=lf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.doc binary
+*.docx binary
+*.pdf binary
+*.sqlite3 binary

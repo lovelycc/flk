@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}未找到条文{% endblock %}
+{% block content %}
+  <section class="empty not-found">
+    <h1>没有找到这条内容</h1>
+    <p>该条文可能尚未导入数据库。</p>
+    <a class="button-link" href="{{ url_for('index') }}">返回首页</a>
+  </section>
+{% endblock %}

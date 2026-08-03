@@ -1,0 +1,20 @@
+{
+  "slug": "spc-state-land-use-contract-interpretation",
+  "title": "最高人民法院关于审理涉及国有土地使用权合同纠纷案件适用法律问题的解释",
+  "short_name": "国有土地使用权合同司法解释",
+  "issuing_authority": "最高人民法院",
+  "jurisdiction": "中国",
+  "category": "司法解释",
+  "status": "effective",
+  "version_label": "2020年修正版（现行）",
+  "version_status": "effective",
+  "promulgation_date": "2020-12-29",
+  "effective_date": "2021-01-01",
+  "expiry_date": null,
+  "source_url": "https://www.court.gov.cn/zixun/xiangqing/282621.html",
+  "source_record_id": "ff808181799df4000179b09d7fb4181e",
+  "source_hash": "5b29f0fa9f83cc17dedfe48001a669dd898939cd4295a0eb4242f0c16eabfe0f",
+  "description": "国有土地使用权出让、转让及合作开发房地产合同纠纷的司法解释。",
+  "article_count": 25,
+  "source_database": "中华人民共和国最高人民法院"
+}

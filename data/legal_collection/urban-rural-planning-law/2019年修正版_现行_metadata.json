@@ -1,0 +1,20 @@
+{
+  "slug": "urban-rural-planning-law",
+  "title": "中华人民共和国城乡规划法",
+  "short_name": "城乡规划法",
+  "issuing_authority": "全国人民代表大会常务委员会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2019年修正版（现行）",
+  "version_status": "effective",
+  "promulgation_date": "2019-04-23",
+  "effective_date": "2019-04-23",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=ff8080816f135f46016f216129dd1a92",
+  "source_record_id": "ff8080816f135f46016f216129dd1a92",
+  "source_hash": "eabc0b379825d781b059d70124f75ca70b54585ebd22203ce98f661a802eb74a",
+  "description": "城乡规划制定、实施、修改和监督检查的基础法律。",
+  "article_count": 70,
+  "source_database": "国家法律法规数据库"
+}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ topic['title'] }} · 业务专题{% endblock %}
+{% block content %}
+  <a class="back" href="{{ url_for('topic_library') }}">← 返回业务专题</a>
+  <div class="page-title compact"><p class="eyebrow">WORKFLOW</p><h1>{{ topic['title'] }}</h1><p>{{ topic['summary'] }}</p></div>
+  <section class="panel">
+    <h2>主要法律依据</h2><div class="related-links">{% for law in laws %}<a href="{{ url_for('law_detail', law_slug=law['slug']) }}">{{ law['short_name'] or law['title'] }}</a>{% endfor %}</div>
+  </section>
+  <section class="workflow-list">
+    {% for label, keywords in topic['steps'] %}
+      <div class="workflow-step"><span>{{ loop.index }}</span><div><h2>{{ label }}</h2><p>建议检索：{{ keywords }}</p></div><a href="{{ url_for('index', q=keywords) }}">检索相关法条 →</a></div>
+    {% endfor %}
+  </section>
+  <div class="notice-box">专题是检索导航，不替代案件事实认定、法定程序审查或正式法律意见。</div>
+{% endblock %}

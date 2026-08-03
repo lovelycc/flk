@@ -1,0 +1,107 @@
+[
+  {
+    "metadata": "data\\legal_collection\\land-administration-law\\2004年修正版_历史_metadata.json",
+    "articles": "data\\legal_collection\\land-administration-law\\2004年修正版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\land-administration-law\\2019年修正版_现行_metadata.json",
+    "articles": "data\\legal_collection\\land-administration-law\\2019年修正版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\land-administration-law-regulations\\2014年修正版_历史_metadata.json",
+    "articles": "data\\legal_collection\\land-administration-law-regulations\\2014年修正版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\land-administration-law-regulations\\2021年修订版_现行_metadata.json",
+    "articles": "data\\legal_collection\\land-administration-law-regulations\\2021年修订版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\urban-rural-planning-law\\2015年修正版_历史_metadata.json",
+    "articles": "data\\legal_collection\\urban-rural-planning-law\\2015年修正版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\urban-rural-planning-law\\2019年修正版_现行_metadata.json",
+    "articles": "data\\legal_collection\\urban-rural-planning-law\\2019年修正版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-licensing-law\\2003年通过版_历史_metadata.json",
+    "articles": "data\\legal_collection\\administrative-licensing-law\\2003年通过版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-licensing-law\\2019年修正版_现行_metadata.json",
+    "articles": "data\\legal_collection\\administrative-licensing-law\\2019年修正版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-penalty-law\\2017年修正版_历史_metadata.json",
+    "articles": "data\\legal_collection\\administrative-penalty-law\\2017年修正版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-penalty-law\\2021年修订版_现行_metadata.json",
+    "articles": "data\\legal_collection\\administrative-penalty-law\\2021年修订版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-reconsideration-law\\2017年修正版_历史_metadata.json",
+    "articles": "data\\legal_collection\\administrative-reconsideration-law\\2017年修正版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-reconsideration-law\\2023年修订版_现行_metadata.json",
+    "articles": "data\\legal_collection\\administrative-reconsideration-law\\2023年修订版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\administrative-litigation-law\\2017年修正版_现行_metadata.json",
+    "articles": "data\\legal_collection\\administrative-litigation-law\\2017年修正版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\interim-real-estate-registration-regulations\\2019年修正版_历史_metadata.json",
+    "articles": "data\\legal_collection\\interim-real-estate-registration-regulations\\2019年修正版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\interim-real-estate-registration-regulations\\2024年修正版_现行_metadata.json",
+    "articles": "data\\legal_collection\\interim-real-estate-registration-regulations\\2024年修正版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\spc-administrative-litigation-interpretation\\2018年施行版_现行_metadata.json",
+    "articles": "data\\legal_collection\\spc-administrative-litigation-interpretation\\2018年施行版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\spc-state-land-use-contract-interpretation\\2005年施行版_历史_metadata.json",
+    "articles": "data\\legal_collection\\spc-state-land-use-contract-interpretation\\2005年施行版_历史_articles.json",
+    "current": false
+  },
+  {
+    "metadata": "data\\legal_collection\\spc-state-land-use-contract-interpretation\\2020年修正版_现行_metadata.json",
+    "articles": "data\\legal_collection\\spc-state-land-use-contract-interpretation\\2020年修正版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\spc-house-registration-provisions\\2010年施行版_现行_metadata.json",
+    "articles": "data\\legal_collection\\spc-house-registration-provisions\\2010年施行版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\idle-land-disposal-measures\\2012年修订版_现行_metadata.json",
+    "articles": "data\\legal_collection\\idle-land-disposal-measures\\2012年修订版_现行_articles.json",
+    "current": true
+  },
+  {
+    "metadata": "data\\legal_collection\\natural-resources-administrative-penalty-measures\\2024年修订版_现行_metadata.json",
+    "articles": "data\\legal_collection\\natural-resources-administrative-penalty-measures\\2024年修订版_现行_articles.json",
+    "current": true
+  }
+]

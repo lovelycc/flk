@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}自然资源业务专题 · 法律查询助手{% endblock %}
+{% block content %}
+  <div class="page-title"><p class="eyebrow">WORKFLOW TOPICS</p><h1>自然资源业务专题</h1><p>按业务流程组织检索入口；具体结论仍以链接的现行法条为准。</p></div>
+  <div class="topic-grid">
+    {% for topic in topics %}
+      <a class="topic-card" href="{{ url_for('topic_detail', topic_slug=topic['slug']) }}">
+        <span>{{ "%02d"|format(loop.index) }}</span>
+        <h2>{{ topic['title'] }}</h2><p>{{ topic['summary'] }}</p><small>{{ topic['steps']|length }} 个环节</small>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}法律查询助手 V3.4{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('index') }}">法律查询助手 <span>V3.4</span></a>
+    <nav>
+      <a href="{{ url_for('index') }}">条文查询</a>
+      <a href="{{ url_for('law_library') }}">法律库</a>
+      <a href="{{ url_for('topic_library') }}">业务专题</a>
+      <a href="{{ url_for('personal_workspace') }}">收藏与历史</a>
+      <a href="{{ url_for('update_center') }}">更新检查</a>
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    本地运行 · SQLite 存储 · 数据来源：
+    <a href="https://flk.npc.gov.cn/" target="_blank" rel="noreferrer">国家法律法规数据库</a>
+    · 使用时请核对标准文本
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "slug": "administrative-reconsideration-law",
+  "title": "中华人民共和国行政复议法",
+  "short_name": "行政复议法",
+  "issuing_authority": "全国人民代表大会常务委员会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2017年修正版（历史）",
+  "version_status": "repealed",
+  "promulgation_date": "2017-09-01",
+  "effective_date": "2018-01-01",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf86f120a73",
+  "source_record_id": "2c909fdd678bf17901678bf86f120a73",
+  "source_hash": "917b8a28f46e6c00f54a164d778c63895159e82c9f9195e9c1f19ce7e9ba475e",
+  "description": "行政复议申请、受理、审理和决定程序的基础法律。",
+  "article_count": 43,
+  "source_database": "国家法律法规数据库"
+}

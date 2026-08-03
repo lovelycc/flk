@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <p class="eyebrow">个人法律知识库</p>
+    <h1>跨法律条文查询</h1>
+    <p>输入条文号或关键词，可限定法律，并按指定日期查询当时适用的版本。</p>
+    <form class="search search-with-filter" method="get" action="{{ url_for('index') }}">
+      <select name="law" aria-label="选择法律">
+        <option value="">全部法律</option>
+        {% for law in laws %}
+          <option value="{{ law['slug'] }}" {% if law_filter == law['slug'] %}selected{% endif %}>{{ law['short_name'] or law['title'] }}</option>
+        {% endfor %}
+      </select>
+      <input name="q" value="{{ query }}" placeholder="条文号或关键词" autofocus required>
+      <input type="date" name="as_of" value="{{ as_of }}" aria-label="指定适用日期" title="查询该日期适用的法律版本">
+      <button type="submit">查询</button>
+    </form>
+  </section>
+
+  {% if query %}
+    <section class="results">
+      <div class="section-heading">
+        <h2>搜索结果</h2><span>{{ results|length }} 条</span>
+      </div>
+      {% if results %}
+        {% for article in results %}
+          <a class="result-card" href="{{ url_for('article_detail', law_slug=article['law_slug'], article_no=article['article_no'], as_of=as_of or None) }}">
+            <div>
+              <span class="law-chip">{{ article['law_short_name'] or article['law_title'] }}</span>
+              <div class="article-number">第 {{ article['article_no'] }} 条</div>
+            </div>
+            <div>
+              <div class="result-title-row">
+                <h3>{{ article['title'] or article['law_short_name'] ~ '第' ~ article['article_no'] ~ '条' }}</h3>
+                <span class="status-badge {{ article['version_status'] }}">{{ article['version_status']|status_label }}</span>
+              </div>
+              <p>{{ article['content']|truncate(130) }}</p>
+              <small>{{ article['version_label'] }}{% if as_of %} · {{ as_of }} 时适用{% endif %}{% if article['book'] %} · {{ article['book'] }}{% endif %}{% if article['chapter'] %} · {{ article['chapter'] }}{% endif %}</small>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <div class="empty">没有找到“{{ query }}”。请尝试缩短关键词、切换法律范围或直接输入条文号。</div>
+      {% endif %}
+    </section>
+  {% else %}
+    <section class="tips">
+      <div><strong>{{ laws|length }} 部法律</strong><span>支持持续扩展法律库</span></div>
+      <div><strong>{{ article_count }} 条现行条文</strong><span>跨法律统一检索</span></div>
+      <div><strong>版本与效力</strong><span>现行、待生效、失效、废止</span></div>
+    </section>
+    <div class="home-action"><a class="button-link secondary" href="{{ url_for('law_library') }}">查看法律库与版本历史</a></div>
+  {% endif %}
+{% endblock %}

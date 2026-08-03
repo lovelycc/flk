@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}官方更新检查 · 法律查询助手{% endblock %}
+{% block content %}
+  <div class="page-title"><p class="eyebrow">SOURCE MONITOR</p><h1>官方更新检查</h1><p>只读核对官方记录的可访问性、标题和关键日期；发现异常后由你确认，不自动覆盖本地法条。</p></div>
+  <section class="panel update-control">
+    <form method="post" action="{{ url_for('run_update_check') }}"><button type="submit">立即检查官方来源</button></form>
+    {% if check %}<div><strong>{{ check['summary'] }}</strong><small>上次检查：{{ check['checked_at'] }}</small></div>{% else %}<span>尚未执行检查。</span>{% endif %}
+  </section>
+  {% if results %}<div class="update-list">
+    {% for item in results %}
+      <div class="update-row {{ item['status'] }}"><span class="check-dot"></span><div><strong>{{ item['title'] }}</strong><small>{{ item['version_label'] }}</small><p>{{ item['message'] }}</p></div>{% if item['source_url'] %}<a href="{{ item['source_url'] }}" target="_blank" rel="noreferrer">官方记录</a>{% endif %}</div>
+    {% endfor %}
+  </div>{% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}收藏与浏览历史 · 法律查询助手{% endblock %}
+{% block content %}
+  <div class="page-title"><p class="eyebrow">PERSONAL WORKSPACE</p><h1>收藏与浏览历史</h1><p>数据只保存在本机 SQLite。</p></div>
+  <section class="panel">
+    <div class="section-heading"><h2>我的收藏</h2><span>{{ favorites|length }} 条</span></div>
+    {% if favorites %}<div class="saved-list">
+      {% for item in favorites %}
+        <a href="{{ url_for('article_detail', law_slug=item['law_slug'], article_no=item['article_no']) }}">
+          <strong>{{ item['law_short_name'] or item['law_title'] }}第{{ item['article_no'] }}条</strong>
+          <span>{{ item['title'] or (item['content'] or '')|truncate(80) }}</span>
+        </a>
+      {% endfor %}
+    </div>{% else %}<div class="empty compact-empty">尚未收藏条文。</div>{% endif %}
+  </section>
+  <section class="panel">
+    <div class="section-heading"><h2>最近浏览</h2>
+      {% if history %}<form method="post" action="{{ url_for('clear_history') }}"><button class="text-button" type="submit">清空历史</button></form>{% endif %}
+    </div>
+    {% if history %}<div class="saved-list">
+      {% for item in history %}
+        <a href="{{ url_for('article_detail', law_slug=item['law_slug'], article_no=item['article_no']) }}">
+          <strong>{{ item['law_short_name'] or item['law_title'] }}第{{ item['article_no'] }}条</strong>
+          <span>{{ item['title'] or (item['content'] or '')|truncate(65) }}</span>
+          <small>{{ item['viewed_at'] }} · 浏览 {{ item['view_count'] }} 次</small>
+        </a>
+      {% endfor %}
+    </div>{% else %}<div class="empty compact-empty">还没有浏览记录。</div>{% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{
+  "slug": "land-administration-law",
+  "title": "中华人民共和国土地管理法",
+  "short_name": "土地管理法",
+  "issuing_authority": "全国人民代表大会常务委员会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2019年修正版（现行）",
+  "version_status": "effective",
+  "promulgation_date": "2019-08-26",
+  "effective_date": "2020-01-01",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=ff8080816f3cbb3c016f4626903427fc",
+  "source_record_id": "ff8080816f3cbb3c016f4626903427fc",
+  "source_hash": "edef5d65ebdc3089889cecfbd9ee49064665877fd4ff04d8f4212ccce3932cd5",
+  "description": "土地所有权、用途管制、耕地保护、建设用地和监督检查的基础法律。",
+  "article_count": 87,
+  "source_database": "国家法律法规数据库"
+}

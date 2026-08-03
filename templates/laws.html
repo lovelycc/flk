@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}法律库 · 法律查询助手{% endblock %}
+{% block content %}
+  <div class="page-title">
+    <p class="eyebrow">LAW LIBRARY</p>
+    <h1>法律库</h1>
+    <p>集中查看法律效力、现行版本和历史版本。</p>
+  </div>
+  <div class="law-grid">
+    {% for law in laws %}
+      <a class="law-card" href="{{ url_for('law_detail', law_slug=law['slug']) }}">
+        <div class="law-card-top">
+          <span class="law-category">{{ law['category'] }}</span>
+          <span class="status-badge {{ law['status'] }}">{{ law['status']|status_label }}</span>
+        </div>
+        <h2>{{ law['title'] }}</h2>
+        <p>{{ law['description'] or law['issuing_authority'] }}</p>
+        <dl>
+          <div><dt>现行版本</dt><dd>{{ law['version_label'] or '未设置' }}</dd></div>
+          <div><dt>施行日期</dt><dd>{{ law['version_effective_date']|date_or_dash }}</dd></div>
+          <div><dt>规模</dt><dd>{{ law['article_count'] }} 条 · {{ law['version_count'] }} 个版本</dd></div>
+        </dl>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

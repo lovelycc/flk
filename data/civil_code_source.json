@@ -1,0 +1,20 @@
+{
+  "slug": "civil-code",
+  "title": "中华人民共和国民法典",
+  "short_name": "民法典",
+  "issuing_authority": "全国人民代表大会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2020年通过版（现行）",
+  "version_status": "effective",
+  "source_record_id": "ff808081729d1efe01729d50b5c500bf",
+  "source_url": "https://flk.npc.gov.cn/detail?id=ff808081729d1efe01729d50b5c500bf",
+  "official_database": "国家法律法规数据库",
+  "maintainer": "全国人大常委会办公厅",
+  "promulgation_date": "2020-05-28",
+  "effective_date": "2021-01-01",
+  "downloaded_at_utc": "2026-08-02T18:22:46.426255+00:00",
+  "source_hash": "6926a597a66c5aad4803591ce9a51a8eebe847260f5ba2805210b608ded78353",
+  "article_count": 1260
+}

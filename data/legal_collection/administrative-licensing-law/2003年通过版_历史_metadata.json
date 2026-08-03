@@ -1,0 +1,20 @@
+{
+  "slug": "administrative-licensing-law",
+  "title": "中华人民共和国行政许可法",
+  "short_name": "行政许可法",
+  "issuing_authority": "全国人民代表大会常务委员会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2003年通过版（历史）",
+  "version_status": "repealed",
+  "promulgation_date": "2003-08-27",
+  "effective_date": "2004-07-01",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf616a602c1",
+  "source_record_id": "2c909fdd678bf17901678bf616a602c1",
+  "source_hash": "53ff7d818f3b37eb2da8858c27c9f2bd30d56b23b9348a1b4c9ed27b43983c7f",
+  "description": "行政许可设定、实施、监督检查和法律责任的基础法律。",
+  "article_count": 83,
+  "source_database": "国家法律法规数据库"
+}

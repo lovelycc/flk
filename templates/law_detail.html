@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}{{ law['title'] }} · 版本管理{% endblock %}
+{% block content %}
+  <a class="back" href="{{ url_for('law_library') }}">← 返回法律库</a>
+  <section class="law-profile">
+    <div>
+      <div class="source-row"><span class="law-category">{{ law['category'] }}</span><span class="status-badge {{ law['status'] }}">{{ law['status']|status_label }}</span></div>
+      <h1>{{ law['title'] }}</h1>
+      <p>{{ law['description'] }}</p>
+    </div>
+    <dl class="law-facts">
+      <div><dt>制定机关</dt><dd>{{ law['issuing_authority'] or '—' }}</dd></div>
+      <div><dt>公布日期</dt><dd>{{ law['promulgation_date']|date_or_dash }}</dd></div>
+      <div><dt>施行日期</dt><dd>{{ law['effective_date']|date_or_dash }}</dd></div>
+      {% if law['expiry_date'] %}<div><dt>失效日期</dt><dd>{{ law['expiry_date'] }}</dd></div>{% endif %}
+      {% if law['source_url'] %}<div><dt>官方来源</dt><dd><a href="{{ law['source_url'] }}" target="_blank" rel="noreferrer">打开记录</a></dd></div>{% endif %}
+    </dl>
+  </section>
+
+  <section class="panel effective-date-panel">
+    <h2>指定日期效力查询</h2>
+    <form class="as-of-form" method="get">
+      <label>日期 <input type="date" name="as_of" value="{{ as_of or today }}"></label>
+      <button type="submit">查询适用版本</button>
+    </form>
+    {% if as_of %}
+      {% if effective_version %}
+        <p><strong>{{ as_of }}</strong> 对应版本：<a href="{{ url_for('version_articles', law_slug=law['slug'], version_id=effective_version['id']) }}">{{ effective_version['version_label'] }}</a>。</p>
+      {% else %}<p class="warning-text">该日期之前没有已导入的适用版本。</p>{% endif %}
+    {% endif %}
+  </section>
+
+  <section class="panel version-panel">
+    <div class="section-heading"><h2>版本历史</h2>{% if versions|length > 1 %}<a href="{{ url_for('compare_versions', law_slug=law['slug']) }}">版本对比</a>{% endif %}</div>
+    <div class="version-list">
+      {% for version in versions %}
+        <div class="version-row">
+          <div>
+            <div class="source-row"><strong>{{ version['version_label'] }}</strong>{% if version['is_current'] %}<span class="current-mark">当前版本</span>{% endif %}<span class="status-badge {{ version['status'] }}">{{ version['status']|status_label }}</span></div>
+            <small>公布 {{ version['promulgation_date']|date_or_dash }} · 施行 {{ version['effective_date']|date_or_dash }}{% if version['expiry_date'] %} · 失效 {{ version['expiry_date'] }}{% endif %}</small>
+          </div>
+          <div class="version-actions">
+            <span>{{ version['article_count'] }} 条</span>
+            <a href="{{ url_for('version_articles', law_slug=law['slug'], version_id=version['id']) }}">查看条文</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

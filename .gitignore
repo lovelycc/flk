@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.pytest*/
+.env
+.env.*
+.DS_Store
+*.zip
+data/**/*_official.*
+!data/civil_code_1260_official.json
+data/**/current_court_decision.html
+instance/*.db
+instance/*.sqlite3
+instance/*.pid
+instance/*.log

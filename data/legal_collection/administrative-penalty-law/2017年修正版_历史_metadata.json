@@ -1,0 +1,20 @@
+{
+  "slug": "administrative-penalty-law",
+  "title": "中华人民共和国行政处罚法",
+  "short_name": "行政处罚法",
+  "issuing_authority": "全国人民代表大会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2017年修正版（历史）",
+  "version_status": "repealed",
+  "promulgation_date": "2017-09-01",
+  "effective_date": "2018-01-01",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf86fa90a7d",
+  "source_record_id": "2c909fdd678bf17901678bf86fa90a7d",
+  "source_hash": "78885e107bb3988f15d9f4cc0e4937ab135de2971bb2a8f60b11b2782707da06",
+  "description": "行政处罚设定、实施机关、管辖适用及程序的基础法律。",
+  "article_count": 64,
+  "source_database": "国家法律法规数据库"
+}

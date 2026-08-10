@@ -24,6 +24,7 @@ DETAIL_URL = f"{BASE_URL}/law-search/search/flfgDetails"
 DOWNLOAD_URL = f"{BASE_URL}/law-search/download/pc"
 USER_AGENT = "Mozilla/5.0 Civil-Code-Importer/3.1"
 ARTICLE_PATTERN = re.compile(r"^第([〇零一二三四五六七八九十百千万两]+)条[\s　]*(.*)$")
+ARTICLE_SUFFIX_PATTERN = re.compile(r"^之[〇零一二三四五六七八九十百千万两]+(?:[\s　]|$)")
 BOOK_PATTERN = re.compile(r"^第[〇零一二三四五六七八九十百千万两]+编(?:\s+|　*)(.*)$")
 CHAPTER_PATTERN = re.compile(r"^第[〇零一二三四五六七八九十百千万两]+章(?:\s+|　*)(.*)$")
 SECTION_PATTERN = re.compile(r"^第[〇零一二三四五六七八九十百千万两]+节(?:\s+|　*)(.*)$")
@@ -119,9 +120,20 @@ def parse_articles(paragraphs: list[str]) -> list[dict]:
         compact = re.sub(r"[\t ]+", " ", paragraph).strip()
         article_match = ARTICLE_PATTERN.match(compact)
         if article_match:
-            finish_current()
             article_no = chinese_number(article_match.group(1))
             first_content = article_match.group(2).strip()
+            # The Criminal Law contains inserted provisions such as
+            # “第一百三十三条之一”.  The current schema uses an integer article
+            # number, so retain each inserted provision verbatim beneath its
+            # base article instead of overwriting it as a duplicate number.
+            if (
+                ARTICLE_SUFFIX_PATTERN.match(first_content)
+                and current is not None
+                and current["article_no"] == article_no
+            ):
+                current["_parts"].append(compact)
+                continue
+            finish_current()
             current = {
                 "article_no": article_no,
                 "content": "",

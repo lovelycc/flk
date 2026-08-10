@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 FLK_DETAIL_URL = "https://flk.npc.gov.cn/law-search/search/flfgDetails"
-USER_AGENT = "Mozilla/5.0 Legal-Assistant/3.4"
+USER_AGENT = "Mozilla/5.0 Legal-Assistant/3.5"
 
 
 def _fetch_json(url: str) -> dict:

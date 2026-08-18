@@ -32,6 +32,36 @@ from import_official_civil_code import (
 
 COLLECTION = [
     {
+        "slug": "civil-procedure-law",
+        "title": "中华人民共和国民事诉讼法",
+        "short_name": "民事诉讼法",
+        "category": "法律",
+        "description": "规范民事案件管辖、审判、执行及涉外民事诉讼程序的基本法律。",
+        "versions": [
+            {"id": "ff8081818a21dc13018b425303b7086d", "label": "2023年修正版（现行）", "status": "effective", "current": True},
+        ],
+    },
+    {
+        "slug": "criminal-law",
+        "title": "中华人民共和国刑法",
+        "short_name": "刑法",
+        "category": "法律",
+        "description": "国家法律法规数据库2020年公布的刑法整合文本（含刑法修正案十一）；查询2024年3月1日后的案件还应结合刑法修正案十二适用。",
+        "versions": [
+            {"id": "ff808181796a636a0179822a19640c92", "label": "2020年修正版（现行）", "status": "effective", "current": True},
+        ],
+    },
+    {
+        "slug": "criminal-procedure-law",
+        "title": "中华人民共和国刑事诉讼法",
+        "short_name": "刑事诉讼法",
+        "category": "法律",
+        "description": "规范刑事案件立案、侦查、起诉、审判和执行程序的基本法律。",
+        "versions": [
+            {"id": "ff8080816f135f46016f1d1b81b01351", "label": "2018年修正版（现行）", "status": "effective", "current": True},
+        ],
+    },
+    {
         "slug": "land-administration-law",
         "title": "中华人民共和国土地管理法",
         "short_name": "土地管理法",

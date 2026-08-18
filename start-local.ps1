@@ -22,7 +22,19 @@ New-Item -ItemType Directory -Force -Path (Join-Path $ProjectDir "instance") | O
 
 if (Test-Path -LiteralPath $PidFile) {
     $ExistingPid = Get-Content -LiteralPath $PidFile -ErrorAction SilentlyContinue
-    if ($ExistingPid -and (Get-Process -Id $ExistingPid -ErrorAction SilentlyContinue)) {
+    $ExistingProcess = if ($ExistingPid) {
+        Get-Process -Id $ExistingPid -ErrorAction SilentlyContinue
+    }
+    $ExistingServerReady = $false
+    if ($ExistingProcess) {
+        try {
+            $ExistingResponse = Invoke-WebRequest -Uri "http://127.0.0.1:5000" -UseBasicParsing -TimeoutSec 2
+            $ExistingServerReady = $ExistingResponse.StatusCode -eq 200
+        } catch {
+            # A stale PID may have been reused by an unrelated process.
+        }
+    }
+    if ($ExistingServerReady) {
         Write-Host "The local server is already running: http://127.0.0.1:5000" -ForegroundColor Green
         Start-Process "http://127.0.0.1:5000"
         exit 0

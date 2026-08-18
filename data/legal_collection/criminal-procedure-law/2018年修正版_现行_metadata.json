@@ -1,0 +1,20 @@
+{
+  "slug": "criminal-procedure-law",
+  "title": "中华人民共和国刑事诉讼法",
+  "short_name": "刑事诉讼法",
+  "issuing_authority": "全国人民代表大会",
+  "jurisdiction": "中国",
+  "category": "法律",
+  "status": "effective",
+  "version_label": "2018年修正版（现行）",
+  "version_status": "effective",
+  "promulgation_date": "2018-10-26",
+  "effective_date": "2018-10-26",
+  "expiry_date": null,
+  "source_url": "https://flk.npc.gov.cn/detail?id=ff8080816f135f46016f1d1b81b01351",
+  "source_record_id": "ff8080816f135f46016f1d1b81b01351",
+  "source_hash": "6810ffec97e23afcf5e5e0605f6f15c38299e0acb70c55d77c3c5a1882d954a7",
+  "description": "规范刑事案件立案、侦查、起诉、审判和执行程序的基本法律。",
+  "article_count": 308,
+  "source_database": "国家法律法规数据库"
+}

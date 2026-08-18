@@ -56,34 +56,44 @@ def table_columns(db: sqlite3.Connection, name: str) -> set[str]:
 
 def ensure_civil_code(db: sqlite3.Connection) -> tuple[int, int]:
     law = CIVIL_CODE
-    db.execute(
-        """
-        INSERT INTO laws
-            (slug, title, short_name, issuing_authority, jurisdiction, category,
-             status, promulgation_date, effective_date, expiry_date, source_url, description)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(slug) DO UPDATE SET
-            title=excluded.title, short_name=excluded.short_name,
-            issuing_authority=excluded.issuing_authority,
-            jurisdiction=excluded.jurisdiction, category=excluded.category,
-            status=excluded.status, promulgation_date=excluded.promulgation_date,
-            effective_date=excluded.effective_date, expiry_date=excluded.expiry_date,
-            source_url=excluded.source_url, description=excluded.description,
-            updated_at=CURRENT_TIMESTAMP
-        """,
-        tuple(law[key] for key in (
-            "slug", "title", "short_name", "issuing_authority", "jurisdiction",
-            "category", "status", "promulgation_date", "effective_date",
-            "expiry_date", "source_url", "description",
-        )),
+    law_fields = (
+        "title", "short_name", "issuing_authority", "jurisdiction", "category",
+        "status", "promulgation_date", "effective_date", "expiry_date",
+        "source_url", "description",
     )
-    law_id = db.execute("SELECT id FROM laws WHERE slug=?", (law["slug"],)).fetchone()[0]
+    existing_law = db.execute(
+        f"SELECT id, {', '.join(law_fields)} FROM laws WHERE slug=?",
+        (law["slug"],),
+    ).fetchone()
+    if existing_law is None:
+        cursor = db.execute(
+            f"INSERT INTO laws (slug, {', '.join(law_fields)}) "
+            f"VALUES ({', '.join('?' for _ in range(len(law_fields) + 1))})",
+            (law["slug"], *(law[field] for field in law_fields)),
+        )
+        law_id = cursor.lastrowid
+    else:
+        law_id = existing_law["id"]
+        if any(existing_law[field] != law[field] for field in law_fields):
+            assignments = ", ".join(f"{field}=?" for field in law_fields)
+            db.execute(
+                f"UPDATE laws SET {assignments}, updated_at=CURRENT_TIMESTAMP WHERE id=?",
+                (*(law[field] for field in law_fields), law_id),
+            )
     version = db.execute(
-        "SELECT id FROM law_versions WHERE law_id=? AND version_label=?",
+        """
+        SELECT id, status, promulgation_date, effective_date, expiry_date,
+               source_url, source_record_id, source_hash, is_current
+        FROM law_versions WHERE law_id=? AND version_label=?
+        """,
         (law_id, law["version_label"]),
     ).fetchone()
     if version is None:
-        db.execute("UPDATE law_versions SET is_current=0 WHERE law_id=?", (law_id,))
+        if db.execute(
+            "SELECT 1 FROM law_versions WHERE law_id=? AND is_current<>0 LIMIT 1",
+            (law_id,),
+        ).fetchone():
+            db.execute("UPDATE law_versions SET is_current=0 WHERE law_id=?", (law_id,))
         cursor = db.execute(
             """
             INSERT INTO law_versions
@@ -99,20 +109,34 @@ def ensure_civil_code(db: sqlite3.Connection) -> tuple[int, int]:
         )
         version_id = cursor.lastrowid
     else:
-        version_id = version[0]
-        db.execute("UPDATE law_versions SET is_current=0 WHERE law_id=? AND id<>?", (law_id, version_id))
-        db.execute(
+        version_id = version["id"]
+        if db.execute(
             """
-            UPDATE law_versions SET status=?, promulgation_date=?, effective_date=?,
-                expiry_date=?, source_url=?, source_record_id=?, source_hash=?, is_current=1
-            WHERE id=?
+            SELECT 1 FROM law_versions
+            WHERE law_id=? AND id<>? AND is_current<>0 LIMIT 1
             """,
-            (
-                law["version_status"], law["promulgation_date"], law["effective_date"],
-                law["expiry_date"], law["source_url"], law["source_record_id"],
-                law["source_hash"], version_id,
-            ),
-        )
+            (law_id, version_id),
+        ).fetchone():
+            db.execute(
+                "UPDATE law_versions SET is_current=0 WHERE law_id=? AND id<>? AND is_current<>0",
+                (law_id, version_id),
+            )
+        version_fields = {
+            "status": law["version_status"],
+            "promulgation_date": law["promulgation_date"],
+            "effective_date": law["effective_date"],
+            "expiry_date": law["expiry_date"],
+            "source_url": law["source_url"],
+            "source_record_id": law["source_record_id"],
+            "source_hash": law["source_hash"],
+            "is_current": 1,
+        }
+        if any(version[field] != value for field, value in version_fields.items()):
+            assignments = ", ".join(f"{field}=?" for field in version_fields)
+            db.execute(
+                f"UPDATE law_versions SET {assignments} WHERE id=?",
+                (*version_fields.values(), version_id),
+            )
     return law_id, version_id
 
 

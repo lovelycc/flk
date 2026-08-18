@@ -12,5 +12,6 @@ data/**/*_official.*
 data/**/current_court_decision.html
 instance/*.db
 instance/*.sqlite3
+!instance/mfd.sqlite3
 instance/*.pid
 instance/*.log

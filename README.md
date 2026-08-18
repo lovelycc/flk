@@ -83,7 +83,7 @@ chmod +x start-linux.sh stop-linux.sh
 
 首次启动会在工程目录创建 `.venv` 并安装依赖。日志位于 `instance/server.log` 和 `instance/server-error.log`，数据库仍位于 `instance/mfd.sqlite3`。
 
-从 GitHub 新克隆的工程不会包含个人 SQLite 数据库。第一次启动时，程序会使用仓库内经过校验的官方 JSON 自动建立完整法律库；个人笔记、收藏、历史和检查记录不会上传到 GitHub。
+GitHub 仓库已包含初始化完成的 `instance/mfd.sqlite3`，新电脑克隆或下载后可直接使用现有法律库，无需重新导入法律。若数据库文件被删除，程序仍会使用仓库内经过校验的官方 JSON 自动重建。数据库也会保存笔记、收藏、浏览历史和更新检查记录；公开发布前请确认其中没有不希望公开的个人内容。
 
 可通过环境变量改变监听地址和端口：
 

@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -24,6 +25,20 @@ def test_home_and_library(client):
     library = client.get("/laws")
     assert library.status_code == 200
     assert "中华人民共和国民法典" in library.get_data(as_text=True)
+
+
+def test_reopening_initialized_database_does_not_rewrite_file(app):
+    database = Path(app.config["DATABASE"])
+    before = hashlib.sha256(database.read_bytes()).hexdigest()
+
+    create_app({
+        "TESTING": True,
+        "DATABASE": str(database),
+        "AUTO_BOOTSTRAP_OFFICIAL": False,
+    })
+
+    after = hashlib.sha256(database.read_bytes()).hexdigest()
+    assert after == before
 
 
 def test_number_search_redirects_to_law_scoped_url(client):
